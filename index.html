@@ -528,10 +528,14 @@
       letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);
       margin-bottom:32px;text-align:center;
     }
-    .partners-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
-    .partner{opacity:0.35;transition:opacity 0.2s ease,transform 0.2s ease;cursor:pointer;}
+    .partners-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
+    .partner{opacity:0.35;transition:opacity 0.2s ease,transform 0.2s ease;cursor:pointer;text-decoration:none;}
     .partner:hover{opacity:0.65;transform:translateY(-2px);}
-    .partner img{height:32px;width:auto;}
+    .partner img{height:32px;width:auto;display:block;}
+    .partner-text{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;
+      letter-spacing:0.12em;text-transform:uppercase;color:#fff;white-space:nowrap;
+    }
 
     /* ── FOOTER ── */
     footer{background:var(--surface);border-top:1px solid var(--border);}
@@ -761,7 +765,7 @@
     <div class="mr-team"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista SAD</div><div class="mr-venue">Casa</div></div></div>
     <div class="mr-score" style="color:rgba(255,255,255,0.7)">2 — 2</div>
     <div class="mr-team right"><div class="mr-badge">🟡</div><div><div class="mr-name">Gondomar SC</div><div class="mr-venue">Fora</div></div></div>
-    <div class="mr-cta"><a href="https://www.zerozero.pt/equipa/boavista-sad/361441/jogos?grp=1" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+    <div class="mr-cta"><a href="" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
   </div>
   <div class="match-row">
     <div>
@@ -771,7 +775,7 @@
     <div class="mr-team"><div class="mr-badge">🟢</div><div><div class="mr-name">Avintes</div><div class="mr-venue">Casa</div></div></div>
     <div class="mr-score loss">3 — 2</div>
     <div class="mr-team right"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista SAD</div><div class="mr-venue">Fora</div></div></div>
-    <div class="mr-cta"><a href="https://www.zerozero.pt/equipa/boavista-sad/361441/jogos?grp=1" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+    <div class="mr-cta"><a href="" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
   </div>
   <div class="match-row">
     <div>
@@ -781,7 +785,7 @@
     <div class="mr-team"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista SAD</div><div class="mr-venue">Casa</div></div></div>
     <div class="mr-score loss">0 — 3</div>
     <div class="mr-team right"><div class="mr-badge">🔴</div><div><div class="mr-name">Ermesinde 1936</div><div class="mr-venue">Fora</div></div></div>
-    <div class="mr-cta"><a href="https://www.zerozero.pt/equipa/boavista-sad/361441/jogos?grp=1" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+    <div class="mr-cta"><a href="" target="_blank" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
   </div>
   <div class="match-row">
     <div>
@@ -791,7 +795,7 @@
     <div class="mr-team"><div class="mr-badge">🔵</div><div><div class="mr-name">SC Coimbrões</div><div class="mr-venue">Casa</div></div></div>
     <div class="mr-score" style="color:var(--muted)">— VS —</div>
     <div class="mr-team right"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista SAD</div><div class="mr-venue">Fora</div></div></div>
-    <div class="mr-cta"><a href="https://www.zerozero.pt/equipa/boavista-sad/361441/jogos?grp=1" target="_blank" class="btn-gold" style="font-size:11px;padding:7px 14px;">Acompanhar</a></div>
+    <div class="mr-cta"><a href="" target="_blank" class="btn-gold" style="font-size:11px;padding:7px 14px;">Acompanhar</a></div>
   </div>
 </section>
 
@@ -799,7 +803,7 @@
 <section id="squad">
   <div class="sec-head">
     <div class="sec-head-title">Plantel 2025/26</div>
-    <a href="https://www.zerozero.pt/equipa/boavista-sad/361441/plantel" target="_blank" class="sec-head-link">Ver Tudo</a>
+    <a href="" target="_blank" class="sec-head-link">Ver Tudo</a>
   </div>
   <div class="squad-grid">
     <div class="player-card">
@@ -983,11 +987,16 @@
 <section id="partners">
   <div class="partners-label">Parceiros Oficiais</div>
   <div class="partners-row">
-    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+1" alt="p1"></div>
-    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+2" alt="p2"></div>
-    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+3" alt="p3"></div>
-    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+4" alt="p4"></div>
-    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+5" alt="p5"></div>
+    <a href="https://www.estrellagalicia.es" target="_blank" rel="noopener" class="partner"><span class="partner-text">Estrella Galicia</span></a>
+    <a href="https://www.auditiv.pt" target="_blank" rel="noopener" class="partner"><span class="partner-text">Auditiv</span></a>
+    <a href="https://www.fccar.pt" target="_blank" rel="noopener" class="partner"><span class="partner-text">FCcar.pt</span></a>
+    <a href="https://www.auara.com" target="_blank" rel="noopener" class="partner"><span class="partner-text">AUARA</span></a>
+    <a href="https://www.nortada.pt" target="_blank" rel="noopener" class="partner"><img src="brand_assets/partners/nortada.jpg" alt="Nortada"></a>
+    <a href="https://www.kelme.com" target="_blank" rel="noopener" class="partner"><img src="brand_assets/partners/kelme.svg" alt="Kelme" style="filter:invert(1);height:22px;"></a>
+    <a href="https://deltacafes.com" target="_blank" rel="noopener" class="partner"><span class="partner-text">Delta Cafés</span></a>
+    <a href="https://www.espiritosantoautocarros.pt" target="_blank" rel="noopener" class="partner"><span class="partner-text">Espírito Santo Autocarros</span></a>
+    <a href="https://liftech.pt" target="_blank" rel="noopener" class="partner"><img src="brand_assets/partners/liftech.png" alt="Liftech"></a>
+    <a href="https://cenarioalfaiates.pt" target="_blank" rel="noopener" class="partner"><span class="partner-text">Cenário Alfaiates</span></a>
   </div>
 </section>
 
