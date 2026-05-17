@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boavista Futebol Clube</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C46A;
+      --gold-dim: rgba(201,168,76,0.15);
+      --black: #080808;
+      --surface: #111111;
+      --elevated: #191919;
+      --border: rgba(255,255,255,0.09);
+      --muted: #888;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:#fff;font-family:'Barlow',sans-serif;overflow-x:hidden;}
+    ::-webkit-scrollbar{width:3px;}
+    ::-webkit-scrollbar-track{background:var(--black);}
+    ::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.5);}
+
+    /* ── UTILITY ── */
+    .condensed{font-family:'Barlow Condensed',sans-serif;}
+    .bebas{font-family:'Bebas Neue',sans-serif;}
+    .gold{color:var(--gold);}
+    .upper{text-transform:uppercase;}
+
+    /* ── CHECKER TEXTURE ── */
+    .checker-bg{
+      background-image:
+        linear-gradient(45deg,rgba(255,255,255,0.03) 25%,transparent 25%),
+        linear-gradient(-45deg,rgba(255,255,255,0.03) 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,rgba(255,255,255,0.03) 75%),
+        linear-gradient(-45deg,transparent 75%,rgba(255,255,255,0.03) 75%);
+      background-size:24px 24px;
+      background-position:0 0,0 12px,12px -12px,-12px 0;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-gold{
+      display:inline-block;background:var(--gold);color:#000;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;
+      padding:11px 22px;transition:background 0.18s ease,transform 0.15s ease;
+    }
+    .btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+    .btn-gold:active{transform:translateY(0);}
+    .btn-white{
+      display:inline-block;background:#fff;color:#000;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;
+      padding:11px 22px;transition:background 0.18s ease,transform 0.15s ease;
+    }
+    .btn-white:hover{background:#e5e5e5;transform:translateY(-1px);}
+    .btn-outline-white{
+      display:inline-block;border:2px solid rgba(255,255,255,0.35);color:#fff;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;
+      padding:9px 22px;transition:border-color 0.18s ease,background 0.18s ease,transform 0.15s ease;
+    }
+    .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,0.06);transform:translateY(-1px);}
+    .btn-outline-gold{
+      display:inline-block;border:2px solid var(--gold);color:var(--gold);
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;
+      padding:9px 22px;transition:border-color 0.18s ease,background 0.18s ease,color 0.18s ease,transform 0.15s ease;
+    }
+    .btn-outline-gold:hover{background:var(--gold);color:#000;transform:translateY(-1px);}
+
+    /* ── TOP UTILITY BAR ── */
+    #topbar{
+      background:#000;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      padding:0 40px;height:36px;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .topbar-links{display:flex;gap:0;list-style:none;}
+    .topbar-links a{
+      color:rgba(255,255,255,0.45);font-size:11px;font-weight:500;
+      letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;
+      padding:0 14px;border-right:1px solid rgba(255,255,255,0.08);line-height:36px;
+      transition:color 0.18s ease;
+    }
+    .topbar-links a:first-child{padding-left:0;}
+    .topbar-links a:hover{color:#fff;}
+    .topbar-social{display:flex;gap:16px;align-items:center;}
+    .topbar-social a{
+      color:rgba(255,255,255,0.4);font-size:11px;text-decoration:none;
+      transition:color 0.18s ease;letter-spacing:0.06em;
+    }
+    .topbar-social a:hover{color:var(--gold);}
+
+    /* ── MAIN NAV ── */
+    #mainnav{
+      position:sticky;top:0;z-index:200;
+      background:var(--black);
+      border-bottom:1px solid var(--border);
+      padding:0 40px;height:64px;
+      display:flex;align-items:center;gap:0;
+      box-shadow:0 2px 16px rgba(0,0,0,0.6);
+    }
+    .nav-logo img{height:44px;width:auto;flex-shrink:0;
+      filter:drop-shadow(0 1px 6px rgba(201,168,76,0.25));
+      transition:filter 0.2s ease;}
+    .nav-logo img:hover{filter:drop-shadow(0 1px 12px rgba(201,168,76,0.5));}
+    .nav-links{display:flex;list-style:none;margin-left:32px;flex:1;}
+    .nav-links > li > a{
+      display:flex;align-items:center;height:64px;padding:0 18px;
+      color:rgba(255,255,255,0.75);font-family:'Barlow Condensed',sans-serif;
+      font-size:15px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+      text-decoration:none;position:relative;
+      transition:color 0.18s ease;white-space:nowrap;
+    }
+    .nav-links > li > a::after{
+      content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;
+      background:var(--gold);transform:scaleX(0);transform-origin:left;
+      transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-links > li > a:hover{color:#fff;}
+    .nav-links > li > a:hover::after{transform:scaleX(1);}
+    .nav-actions{display:flex;gap:10px;align-items:center;margin-left:auto;}
+
+    /* ── FIXTURE TICKER ── */
+    #ticker{
+      background:var(--surface);border-bottom:1px solid var(--border);
+      overflow:hidden;height:38px;
+    }
+    .ticker-inner{
+      display:flex;align-items:stretch;height:38px;
+      animation:tickerScroll 30s linear infinite;
+      width:max-content;
+    }
+    .ticker-inner:hover{animation-play-state:paused;}
+    .ticker-item{
+      display:flex;align-items:center;gap:12px;
+      padding:0 28px;border-right:1px solid var(--border);
+      white-space:nowrap;flex-shrink:0;
+    }
+    .ticker-comp{
+      font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--gold);background:var(--gold-dim);padding:2px 7px;
+    }
+    .ticker-teams{
+      font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
+      letter-spacing:0.04em;text-transform:uppercase;color:#fff;
+    }
+    .ticker-score{
+      font-family:'Bebas Neue',sans-serif;font-size:16px;
+      letter-spacing:0.1em;color:var(--gold);
+    }
+    .ticker-date{font-size:10px;color:var(--muted);letter-spacing:0.06em;}
+    @keyframes tickerScroll{
+      0%{transform:translateX(0);}
+      100%{transform:translateX(-50%);}
+    }
+
+    /* ── HERO ── */
+    #hero{
+      position:relative;height:calc(100vh - 38px - 64px);min-height:540px;
+      display:flex;overflow:hidden;
+    }
+    .hero-img{
+      position:absolute;inset:0;
+      background:url('brand_assets/mw-1920.jpeg') center/cover no-repeat;
+    }
+    .hero-img::after{
+      content:'';position:absolute;inset:0;
+      background:
+        linear-gradient(to right, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.5) 45%, rgba(8,8,8,0.9) 100%),
+        linear-gradient(to bottom, rgba(8,8,8,0.1) 0%, rgba(8,8,8,0.4) 100%);
+    }
+    /* Giant checker watermark in hero */
+    .hero-checker-mark{
+      position:absolute;bottom:-30px;left:40px;
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;
+      font-size:clamp(140px,18vw,260px);line-height:1;
+      color:rgba(255,255,255,0.055);letter-spacing:-0.02em;
+      text-transform:uppercase;user-select:none;pointer-events:none;
+    }
+    /* Right match panel */
+    .hero-panel{
+      position:absolute;right:0;top:0;bottom:0;width:380px;
+      background:rgba(8,8,8,0.94);border-left:1px solid var(--border);
+      display:flex;flex-direction:column;z-index:10;
+    }
+    .hero-panel-head{
+      padding:22px 28px 16px;
+      border-bottom:1px solid var(--border);
+    }
+    .hero-panel-label{
+      font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+    }
+    .hero-panel-label::before{content:'';width:20px;height:1px;background:var(--gold);}
+    .hero-panel-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;
+      font-size:clamp(28px,3.5vw,42px);text-transform:uppercase;
+      letter-spacing:-0.01em;line-height:1;
+    }
+    .hero-panel-title span{color:var(--gold);}
+    .hero-panel-meta{margin-top:10px;font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+    .hero-panel-vs{
+      padding:20px 28px;border-bottom:1px solid var(--border);
+      display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;
+    }
+    .hpv-team{display:flex;flex-direction:column;gap:6px;}
+    .hpv-team.right{align-items:flex-end;text-align:right;}
+    .hpv-badge{
+      width:48px;height:48px;border-radius:50%;background:var(--elevated);
+      border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;
+    }
+    .hpv-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;}
+    .hpv-city{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+    .hpv-divider{text-align:center;}
+    .hpv-vs{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--muted);letter-spacing:0.1em;}
+    .hpv-time{font-size:12px;color:var(--gold);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+    /* Upcoming fixtures list inside panel */
+    .hero-fixtures{flex:1;overflow-y:auto;padding:12px 0;}
+    .hf-item{
+      display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+      gap:12px;padding:10px 28px;border-bottom:1px solid rgba(255,255,255,0.04);
+      transition:background 0.18s ease;cursor:pointer;
+    }
+    .hf-item:hover{background:rgba(255,255,255,0.03);}
+    .hf-date{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;}
+    .hf-teams{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;}
+    .hf-comp{font-size:9px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:1px;}
+    .hf-cta{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+    .hero-panel-foot{padding:16px 28px;border-top:1px solid var(--border);}
+
+    /* Hero left content */
+    .hero-left{
+      position:relative;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;
+      padding:0 56px 56px;max-width:calc(100% - 380px);
+    }
+    .hero-eyebrow{
+      font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+    }
+    .hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--gold);}
+    .hero-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;
+      font-size:clamp(56px,7vw,100px);line-height:0.92;letter-spacing:-0.02em;
+      margin-bottom:20px;
+    }
+    .hero-title .gold{color:var(--gold);}
+    .hero-desc{
+      font-size:15px;color:rgba(255,255,255,0.55);line-height:1.65;
+      max-width:420px;margin-bottom:28px;
+    }
+    .hero-ctas{display:flex;gap:10px;flex-wrap:wrap;}
+
+    /* ── TICKET SPLIT ── (Angel City style 3-panel) */
+    #tickets{
+      display:grid;grid-template-columns:1fr 2fr 1fr;
+      background:var(--surface);border-bottom:1px solid var(--border);
+    }
+    .tk-panel{
+      padding:40px 36px;border-right:1px solid var(--border);
+      display:flex;flex-direction:column;gap:16px;
+    }
+    .tk-panel:last-child{border-right:none;}
+    .tk-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+      letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);
+    }
+    .tk-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(28px,3vw,40px);
+      text-transform:uppercase;letter-spacing:-0.01em;line-height:1;
+    }
+    .tk-price{
+      font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#fff;
+    }
+    .tk-price-note{font-size:12px;color:var(--muted);margin-top:-8px;letter-spacing:0.04em;}
+    .tk-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;}
+    .tk-cta{margin-top:auto;}
+    .tk-center{
+      padding:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;position:relative;overflow:hidden;background:var(--elevated);
+    }
+    .tk-center-bg{
+      position:absolute;inset:0;opacity:0.04;
+      background-image:
+        linear-gradient(45deg,#fff 25%,transparent 25%),
+        linear-gradient(-45deg,#fff 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#fff 75%),
+        linear-gradient(-45deg,transparent 75%,#fff 75%);
+      background-size:32px 32px;
+      background-position:0 0,0 16px,16px -16px,-16px 0;
+    }
+    .tk-center-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+    .tk-center-match{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;
+      font-size:clamp(28px,3.5vw,46px);text-transform:uppercase;letter-spacing:-0.01em;
+      line-height:1.05;margin-bottom:6px;position:relative;
+    }
+    .tk-center-date{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:20px;position:relative;}
+    .tk-center-logo{height:64px;margin-bottom:14px;position:relative;}
+    .tk-center-ctas{display:flex;gap:10px;position:relative;}
+
+    /* ── SECTION HEADER ── (Angel City style) */
+    .sec-head{
+      display:flex;align-items:baseline;justify-content:space-between;
+      padding:0 40px;margin-bottom:0;
+    }
+    .sec-head-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;
+      font-size:clamp(48px,6vw,80px);text-transform:uppercase;letter-spacing:-0.02em;
+      line-height:1;padding:36px 0 28px;
+    }
+    .sec-head-link{
+      font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
+      letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;
+      display:flex;align-items:center;gap:6px;transition:gap 0.18s ease;
+    }
+    .sec-head-link:hover{gap:10px;}
+    .sec-head-link::after{content:'→';}
+
+    /* ── NEWS ── */
+    #news{padding-bottom:56px;}
+    .news-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+      padding:0 40px;
+    }
+    .news-card{position:relative;overflow:hidden;cursor:pointer;background:var(--surface);}
+    .nc-img{
+      width:100%;aspect-ratio:3/2;object-fit:cover;display:block;
+      transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      filter:grayscale(15%);
+    }
+    .news-card:hover .nc-img{transform:scale(1.04);}
+    .nc-body{padding:18px 20px 22px;}
+    .nc-cat{
+      font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:8px;
+    }
+    .nc-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:clamp(17px,1.8vw,22px);line-height:1.2;text-transform:uppercase;
+      letter-spacing:0.01em;margin-bottom:10px;
+    }
+    .nc-date{font-size:11px;color:var(--muted);}
+    .news-card-featured .nc-img{aspect-ratio:4/3;}
+    .news-card-featured .nc-title{font-size:clamp(20px,2.2vw,28px);}
+
+    /* ── MATCHES ── */
+    #matches{background:var(--surface);border-top:1px solid var(--border);}
+    .match-row{
+      display:grid;grid-template-columns:140px 1fr auto 1fr auto;align-items:center;
+      padding:18px 40px;border-bottom:1px solid var(--border);gap:20px;
+      transition:background 0.18s ease,padding-left 0.18s ease;cursor:pointer;
+    }
+    .match-row:hover{background:var(--elevated);padding-left:52px;}
+    .mr-date{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;line-height:1.4;}
+    .mr-comp{
+      display:inline-block;font-size:9px;font-weight:700;letter-spacing:0.1em;
+      text-transform:uppercase;padding:2px 7px;background:var(--gold-dim);color:var(--gold);margin-top:3px;
+    }
+    .mr-team{display:flex;align-items:center;gap:12px;}
+    .mr-team.right{justify-content:flex-end;flex-direction:row-reverse;}
+    .mr-badge{
+      width:36px;height:36px;border-radius:50%;background:var(--elevated);
+      border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;
+    }
+    .mr-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;}
+    .mr-venue{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+    .mr-score{
+      font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.12em;
+      text-align:center;line-height:1;color:#fff;min-width:80px;
+    }
+    .mr-score.win{color:var(--gold);}
+    .mr-score.loss{color:rgba(255,80,80,0.8);}
+    .mr-cta{text-align:right;}
+
+    /* ── SQUAD ── */
+    #squad{border-top:1px solid var(--border);}
+    .squad-grid{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:2px;
+      padding:0 0 56px;
+    }
+    .player-card{position:relative;overflow:hidden;cursor:pointer;background:var(--surface);}
+    .player-card img{
+      width:100%;aspect-ratio:2/3;object-fit:cover;display:block;
+      filter:grayscale(20%) contrast(1.08);
+      transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .player-card:hover img{transform:scale(1.06);}
+    .pc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);}
+    .pc-wash{position:absolute;inset:0;background:rgba(201,168,76,0.06);mix-blend-mode:overlay;opacity:0;transition:opacity 0.3s ease;}
+    .player-card:hover .pc-wash{opacity:1;}
+    .pc-bottom{
+      position:absolute;bottom:0;left:0;right:0;padding:16px 14px;
+    }
+    .pc-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(201,168,76,0.22);line-height:1;margin-bottom:-8px;}
+    .pc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:0.02em;line-height:1.1;}
+    .pc-pos{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-top:4px;}
+    /* Gold bar on hover */
+    .player-card::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+      background:var(--gold);transform:scaleX(0);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .player-card:hover::after{transform:scaleX(1);}
+
+    /* ── CULTURE / FULL BLEED ── */
+    #culture{
+      position:relative;height:560px;overflow:hidden;
+      display:flex;align-items:center;
+    }
+    .culture-bg{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 80% 120% at 75% 50%, rgba(201,168,76,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 80% at 15% 50%, rgba(201,168,76,0.05) 0%, transparent 60%),
+        linear-gradient(45deg,rgba(201,168,76,0.03) 25%,transparent 25%),
+        linear-gradient(-45deg,rgba(201,168,76,0.03) 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,rgba(201,168,76,0.03) 75%),
+        linear-gradient(-45deg,transparent 75%,rgba(201,168,76,0.03) 75%),
+        linear-gradient(135deg, #141100 0%, #090909 55%, #0a0a0a 100%);
+      background-size:auto,auto,48px 48px,48px 48px,48px 48px,48px 48px,auto;
+      background-position:0 0,0 0,0 0,0 24px,24px -24px,-24px 0,0 0;
+    }
+    .culture-bg::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to right,rgba(8,8,8,0.88) 0%,rgba(8,8,8,0.5) 50%,rgba(8,8,8,0.15) 100%);
+    }
+    /* Ghost number watermark on right side of culture */
+    #culture::before{
+      content:'1903';position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+      font-family:'Bebas Neue',sans-serif;font-size:clamp(160px,18vw,240px);
+      color:rgba(201,168,76,0.06);letter-spacing:0.05em;
+      user-select:none;pointer-events:none;white-space:nowrap;
+    }
+    .culture-content{position:relative;z-index:5;padding:0 40px;max-width:680px;}
+    .culture-eyebrow{
+      font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+    }
+    .culture-eyebrow::before{content:'';width:28px;height:2px;background:var(--gold);}
+    .culture-title{
+      font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;
+      font-size:clamp(56px,6.5vw,88px);letter-spacing:-0.02em;line-height:0.92;margin-bottom:22px;
+    }
+    .culture-title .gold{color:var(--gold);}
+    .culture-body{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.65;max-width:440px;margin-bottom:28px;}
+    .culture-stats{
+      position:absolute;right:0;top:0;bottom:0;width:380px;
+      display:flex;flex-direction:column;justify-content:center;gap:0;
+      border-left:1px solid rgba(201,168,76,0.15);
+      z-index:6;
+    }
+    .cs-item{
+      padding:28px 48px;border-bottom:1px solid rgba(201,168,76,0.1);
+    }
+    .cs-item:last-child{border-bottom:none;}
+    .cs-num{
+      font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,5vw,72px);
+      color:var(--gold);letter-spacing:0.04em;line-height:1;
+    }
+    .cs-label{
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;
+      letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;
+    }
+
+    /* ── MERCH ── */
+    #merch{border-top:1px solid var(--border);background:var(--surface);padding-bottom:56px;}
+    .merch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:0 40px;}
+    .merch-card{background:var(--elevated);cursor:pointer;transition:transform 0.25s ease;}
+    .merch-card:hover{transform:translateY(-3px);}
+    .mc-img{
+      width:100%;aspect-ratio:1;background:var(--black);
+      display:flex;align-items:center;justify-content:center;overflow:hidden;
+    }
+    .mc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;}
+    .merch-card:hover .mc-img img{transform:scale(1.05);}
+    .mc-body{padding:14px 16px 18px;}
+    .mc-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px;}
+    .mc-price{font-size:14px;color:var(--gold);font-weight:600;}
+
+    /* ── MEMBERSHIP ── */
+    #membership{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      border-top:1px solid var(--border);
+    }
+    .memb-card{
+      padding:44px 36px;border-right:1px solid var(--border);
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .memb-card:last-child{border-right:none;}
+    .memb-card.featured{
+      background:var(--surface);
+      border-top:3px solid var(--gold);
+      position:relative;
+    }
+    .memb-card.featured::before{
+      content:'MAIS POPULAR';
+      position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+      background:var(--gold);color:#000;
+      font-family:'Barlow Condensed',sans-serif;font-weight:800;
+      font-size:10px;letter-spacing:0.16em;
+      padding:3px 12px;white-space:nowrap;
+    }
+    .memb-tier{font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+    .memb-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,3.5vw,46px);text-transform:uppercase;letter-spacing:-0.01em;line-height:1;}
+    .memb-price-wrap{margin:4px 0;}
+    .memb-price{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;}
+    .memb-period{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+    .memb-perks{list-style:none;display:flex;flex-direction:column;gap:8px;margin:4px 0;}
+    .memb-perks li{font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:8px;}
+    .memb-perks li::before{content:'✓';color:var(--gold);font-size:11px;font-weight:700;flex-shrink:0;}
+    .memb-cta{margin-top:auto;}
+
+    /* ── PARTNERS ── */
+    #partners{
+      background:var(--black);border-top:1px solid var(--border);
+      padding:44px 40px;
+    }
+    .partners-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+      letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);
+      margin-bottom:32px;text-align:center;
+    }
+    .partners-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+    .partner{opacity:0.35;transition:opacity 0.2s ease,transform 0.2s ease;cursor:pointer;}
+    .partner:hover{opacity:0.65;transform:translateY(-2px);}
+    .partner img{height:32px;width:auto;}
+
+    /* ── FOOTER ── */
+    footer{background:var(--surface);border-top:1px solid var(--border);}
+    .foot-top{
+      display:grid;grid-template-columns:280px 1fr;
+      border-bottom:1px solid var(--border);
+    }
+    .foot-brand{
+      padding:44px 40px;border-right:1px solid var(--border);
+      display:flex;flex-direction:column;gap:16px;
+    }
+    .foot-logo{height:48px;width:auto;align-self:flex-start;}
+    .foot-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:200px;}
+    .foot-checker{display:flex;gap:3px;margin-top:4px;}
+    .fcsq{width:10px;height:10px;}
+    .foot-social{display:flex;gap:6px;margin-top:4px;}
+    .foot-soc-btn{
+      width:32px;height:32px;border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);font-size:11px;text-decoration:none;
+      transition:border-color 0.18s ease,color 0.18s ease;
+    }
+    .foot-soc-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .foot-links-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      padding:44px 40px;gap:32px;
+    }
+    .foot-col-head{
+      font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+    }
+    .foot-col-links{list-style:none;display:flex;flex-direction:column;gap:9px;}
+    .foot-col-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color 0.18s ease;}
+    .foot-col-links a:hover{color:#fff;}
+    .foot-bottom{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 40px;border-top:1px solid var(--border);
+    }
+    .foot-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+    .foot-legal{display:flex;gap:18px;}
+    .foot-legal a{font-size:11px;color:rgba(255,255,255,0.2);text-decoration:none;transition:color 0.18s ease;}
+    .foot-legal a:hover{color:rgba(255,255,255,0.5);}
+  </style>
+</head>
+<body>
+
+<!-- TOP UTILITY BAR -->
+<div id="topbar">
+  <ul class="topbar-links">
+    <li><a href="#">Loja</a></li>
+    <li><a href="#">App</a></li>
+    <li><a href="#">Museu</a></li>
+    <li><a href="#">Media</a></li>
+    <li><a href="#">Fundação</a></li>
+    <li><a href="#">Contactos</a></li>
+  </ul>
+  <div class="topbar-social">
+    <a href="#">IG</a>
+    <a href="#">FB</a>
+    <a href="#">YT</a>
+    <a href="#">𝕏</a>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
+<nav id="mainnav">
+  <a href="#" class="nav-logo"><img src="brand_assets/Boavista_F.C._logo.svg.png" alt="Boavista FC"></a>
+  <ul class="nav-links">
+    <li><a href="#tickets">Bilhetes</a></li>
+    <li><a href="#matches">Calendário</a></li>
+    <li><a href="#squad">Plantel</a></li>
+    <li><a href="#news">Notícias</a></li>
+    <li><a href="#membership">Sócios</a></li>
+    <li><a href="#merch">Loja</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#tickets" class="btn-gold">Comprar Bilhetes</a>
+  </div>
+</nav>
+
+<!-- FIXTURE TICKER -->
+<div id="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <!-- Items injected by JS -->
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-checker-mark" aria-hidden="true">XADREZ</div>
+
+  <!-- Left content -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">Estádio do Bessa · Porto · Portugal</div>
+    <h1 class="hero-title">
+      Boavista<br>
+      Futebol<br>
+      Clube
+    </h1>
+    <p class="hero-desc">Mais de 120 anos de história, identidade e paixão. Feitos de Xadrez.</p>
+    <div class="hero-ctas">
+      <a href="#tickets" class="btn-gold">Comprar Bilhetes</a>
+      <a href="#membership" class="btn-outline-white">Tornar Sócio</a>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="hero-panel">
+    <div class="hero-panel-head">
+      <div class="hero-panel-label">Próximo Jogo</div>
+      <div class="hero-panel-title">Estádio do Bessa</div>
+      <div class="hero-panel-meta">Liga Portugal · Jornada 34</div>
+    </div>
+    <div class="hero-panel-vs">
+      <div class="hpv-team">
+        <div class="hpv-badge">⚫</div>
+        <div class="hpv-name">Boavista</div>
+        <div class="hpv-city">Porto</div>
+      </div>
+      <div class="hpv-divider">
+        <div class="hpv-vs">VS</div>
+        <div class="hpv-time">Sáb · 21:15</div>
+      </div>
+      <div class="hpv-team right">
+        <div class="hpv-badge">🔴</div>
+        <div class="hpv-name">Benfica</div>
+        <div class="hpv-city">Lisboa</div>
+      </div>
+    </div>
+    <div class="hero-fixtures">
+      <div class="hf-item">
+        <div class="hf-date">31 Mai</div>
+        <div>
+          <div class="hf-teams">Boavista FC vs Sporting CP</div>
+          <div class="hf-comp">Liga Portugal</div>
+        </div>
+        <div class="hf-cta">Bilhetes →</div>
+      </div>
+      <div class="hf-item">
+        <div class="hf-date">7 Jun</div>
+        <div>
+          <div class="hf-teams">Famalicão vs Boavista FC</div>
+          <div class="hf-comp">Liga Portugal</div>
+        </div>
+        <div class="hf-cta">Bilhetes →</div>
+      </div>
+      <div class="hf-item">
+        <div class="hf-date">14 Jun</div>
+        <div>
+          <div class="hf-teams">Boavista FC vs Rio Ave</div>
+          <div class="hf-comp">Liga Portugal</div>
+        </div>
+        <div class="hf-cta">Bilhetes →</div>
+      </div>
+      <div class="hf-item">
+        <div class="hf-date">21 Jun</div>
+        <div>
+          <div class="hf-teams">Santa Clara vs Boavista FC</div>
+          <div class="hf-comp">Liga Portugal</div>
+        </div>
+        <div class="hf-cta">Bilhetes →</div>
+      </div>
+    </div>
+    <div class="hero-panel-foot">
+      <a href="#tickets" class="btn-gold" style="display:block;text-align:center;width:100%;">Ver Calendário Completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKET SPLIT (Angel City style 3-panel) -->
+<section id="tickets">
+  <div class="tk-panel">
+    <div class="tk-label">Bilhete Único</div>
+    <div class="tk-title">Jogo a Jogo</div>
+    <div>
+      <div class="tk-price">€15</div>
+      <div class="tk-price-note">A partir de · por jogo</div>
+    </div>
+    <div class="tk-desc">Garante o teu lugar no Estádio do Bessa.</div>
+    <div class="tk-cta"><a href="#" class="btn-gold">Comprar Bilhete</a></div>
+  </div>
+  <div class="tk-center">
+    <div class="tk-center-bg"></div>
+    <img src="brand_assets/Boavista_F.C._logo.svg.png" class="tk-center-logo" alt="BFC">
+    <div class="tk-center-eyebrow">24 Maio · 21:15 · Liga Portugal</div>
+    <div class="tk-center-match">Boavista FC<br>vs SL Benfica</div>
+    <div class="tk-center-date">Estádio do Bessa · Porto</div>
+    <div class="tk-center-ctas">
+      <a href="#" class="btn-gold">Bilhetes a Partir de €15</a>
+    </div>
+  </div>
+  <div class="tk-panel">
+    <div class="tk-label">Lugar de Época</div>
+    <div class="tk-title">Trono da Pantera</div>
+    <div>
+      <div class="tk-price">€120</div>
+      <div class="tk-price-note">Por época · Para sócios</div>
+    </div>
+    <div class="tk-desc">O teu lugar para todos os jogos. Apoia o Boavista do primeiro ao último minuto.</div>
+    <div class="tk-cta"><a href="#membership" class="btn-outline-gold">Torna-te Sócio</a></div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="sec-head">
+    <div class="sec-head-title">Últimas Notícias</div>
+    <a href="#" class="sec-head-link">Ver Todas</a>
+  </div>
+  <div class="news-grid">
+    <div class="news-card news-card-featured" style="grid-column:span 2">
+      <img src="brand_assets/News.webp" alt="" class="nc-img" style="aspect-ratio:16/10;">
+      <div class="nc-body">
+        <div class="nc-cat">Futebol</div>
+        <div class="nc-title">Boavista renova contrato com jogador chave para mais duas temporadas</div>
+        <div class="nc-date">17 Maio 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <img src="brand_assets/News.webp" alt="" class="nc-img">
+      <div class="nc-body">
+        <div class="nc-cat">Clube</div>
+        <div class="nc-title">Novo equipamento 2026/27 revelado ao mundo</div>
+        <div class="nc-date">15 Maio 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <img src="brand_assets/News.webp" alt="" class="nc-img">
+      <div class="nc-body">
+        <div class="nc-cat">Academia</div>
+        <div class="nc-title">Academia celebra 25 anos de formação de talento</div>
+        <div class="nc-date">12 Maio 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATCHES -->
+<section id="matches">
+  <div class="sec-head" style="background:var(--surface)">
+    <div class="sec-head-title">Resultados</div>
+    <a href="#" class="sec-head-link">Calendário Completo</a>
+  </div>
+  <div class="match-row">
+    <div>
+      <div class="mr-date">3 Mai 2026<br>Apito Final</div>
+      <div class="mr-comp">Taça de Portugal</div>
+    </div>
+    <div class="mr-team"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista FC</div><div class="mr-venue">Casa</div></div></div>
+    <div class="mr-score win">3 — 0</div>
+    <div class="mr-team right"><div class="mr-badge">🟢</div><div><div class="mr-name">Vitória SC</div><div class="mr-venue">Fora</div></div></div>
+    <div class="mr-cta"><a href="#" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+  </div>
+  <div class="match-row">
+    <div>
+      <div class="mr-date">10 Mai 2026<br>Apito Final</div>
+      <div class="mr-comp">Liga Portugal</div>
+    </div>
+    <div class="mr-team"><div class="mr-badge">🔵</div><div><div class="mr-name">FC Arouca</div><div class="mr-venue">Casa</div></div></div>
+    <div class="mr-score" style="color:rgba(255,255,255,0.7)">1 — 1</div>
+    <div class="mr-team right"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista FC</div><div class="mr-venue">Fora</div></div></div>
+    <div class="mr-cta"><a href="#" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+  </div>
+  <div class="match-row">
+    <div>
+      <div class="mr-date">17 Mai 2026<br>Apito Final</div>
+      <div class="mr-comp">Liga Portugal</div>
+    </div>
+    <div class="mr-team"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista FC</div><div class="mr-venue">Casa</div></div></div>
+    <div class="mr-score win">2 — 1</div>
+    <div class="mr-team right"><div class="mr-badge">🟡</div><div><div class="mr-name">Estoril Praia</div><div class="mr-venue">Fora</div></div></div>
+    <div class="mr-cta"><a href="#" class="btn-outline-gold" style="font-size:11px;padding:7px 14px;">Resumo</a></div>
+  </div>
+  <div class="match-row">
+    <div>
+      <div class="mr-date">24 Mai 2026<br>21:15</div>
+      <div class="mr-comp">Liga Portugal</div>
+    </div>
+    <div class="mr-team"><div class="mr-badge">⚫</div><div><div class="mr-name">Boavista FC</div><div class="mr-venue">Casa</div></div></div>
+    <div class="mr-score" style="color:var(--muted)">— VS —</div>
+    <div class="mr-team right"><div class="mr-badge">🔴</div><div><div class="mr-name">SL Benfica</div><div class="mr-venue">Fora</div></div></div>
+    <div class="mr-cta"><a href="#tickets" class="btn-gold" style="font-size:11px;padding:7px 14px;">Bilhetes</a></div>
+  </div>
+</section>
+
+<!-- SQUAD -->
+<section id="squad">
+  <div class="sec-head">
+    <div class="sec-head-title">Plantel 2025/26</div>
+    <a href="https://www.zerozero.pt/equipa/boavista-sad/361441/plantel" target="_blank" class="sec-head-link">Ver Tudo</a>
+  </div>
+  <div class="squad-grid">
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=GR" alt="Tomás Maçães">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">12</div><div class="pc-name">Tomás Maçães</div><div class="pc-pos">Guarda-Redes</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=GR" alt="Tiago Lopes">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">01</div><div class="pc-name">Tiago Lopes</div><div class="pc-pos">Guarda-Redes</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=DC" alt="Tomás Silva">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">05</div><div class="pc-name">Tomás Silva</div><div class="pc-pos">Defesa Central</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=DC" alt="Márcio Oliveira">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">04</div><div class="pc-name">Márcio Oliveira</div><div class="pc-pos">Defesa Central</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=LD" alt="Afonso Barros">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">06</div><div class="pc-name">Afonso Barros</div><div class="pc-pos">Lateral Direito</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=LE" alt="Leonardo Ferreira">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">13</div><div class="pc-name">Leonardo Ferreira</div><div class="pc-pos">Lateral Esquerdo</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=MC" alt="Chicha">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">08</div><div class="pc-name">Chicha</div><div class="pc-pos">Médio Centro</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=MC" alt="João Fernandes">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">20</div><div class="pc-name">João Fernandes</div><div class="pc-pos">Médio Centro</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=AV" alt="Tiago Machado">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">10</div><div class="pc-name">Tiago Machado</div><div class="pc-pos">Avançado</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=AV" alt="Afonso Sambú">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">09</div><div class="pc-name">Afonso Sambú</div><div class="pc-pos">Avançado</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=EX" alt="Rafael Pereira">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">11</div><div class="pc-name">Rafael Pereira</div><div class="pc-pos">Extremo</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=EX" alt="Bigo Duarte">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">17</div><div class="pc-name">Bigo Duarte</div><div class="pc-pos">Extremo</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=EX" alt="Tiago Marques">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">07</div><div class="pc-name">Tiago Marques</div><div class="pc-pos">Extremo</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=AV" alt="Martim Silva">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">15</div><div class="pc-name">Martim Silva</div><div class="pc-pos">Avançado</div></div>
+    </div>
+    <div class="player-card">
+      <img src="https://placehold.co/280x420/181200/C9A84C?text=AV" alt="Tiago Silva">
+      <div class="pc-overlay"></div><div class="pc-wash"></div>
+      <div class="pc-bottom"><div class="pc-num">19</div><div class="pc-name">Tiago Silva</div><div class="pc-pos">Avançado</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CULTURE / FEITOS DE XADREZ -->
+<section id="culture">
+  <div class="culture-bg"></div>
+  <div class="culture-content">
+    <div class="culture-eyebrow">A Nossa Identidade</div>
+    <h2 class="culture-title">Feitos de<br><span class="gold">Xadrez</span></h2>
+    <p class="culture-body">Em 2001 tornámo-nos os únicos fora do trio grande a conquistar o título nacional português — uma façanha histórica que o futebol nunca esquecerá. Fundados em 1903, vivemos cada jogo com a alma do Porto.</p>
+    <a href="#" class="btn-gold">Conhecer a Nossa História</a>
+  </div>
+  <div class="culture-stats">
+    <div class="cs-item">
+      <div class="cs-num">1903</div>
+      <div class="cs-label">Fundação</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-num">1×</div>
+      <div class="cs-label">Campeão Nacional</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-num">+120</div>
+      <div class="cs-label">Anos de História</div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH -->
+<section id="merch">
+  <div class="sec-head" style="background:var(--surface)">
+    <div class="sec-head-title">Loja Oficial</div>
+    <a href="#" class="sec-head-link">Ver Tudo</a>
+  </div>
+  <div class="merch-grid">
+    <div class="merch-card">
+      <div class="mc-img"><img src="https://placehold.co/400x400/1e1400/C9A84C?text=Camisola+Principal" alt="Kit"></div>
+      <div class="mc-body"><div class="mc-name">Camisola Principal 2026/27</div><div class="mc-price">€ 89,99</div></div>
+    </div>
+    <div class="merch-card">
+      <div class="mc-img"><img src="https://placehold.co/400x400/1e1400/C9A84C?text=Camisola+Alternativa" alt="Kit Alt"></div>
+      <div class="mc-body"><div class="mc-name">Camisola Alternativa 2026/27</div><div class="mc-price">€ 89,99</div></div>
+    </div>
+    <div class="merch-card">
+      <div class="mc-img"><img src="https://placehold.co/400x400/1e1400/C9A84C?text=Cachecol+BFC" alt="Scarf"></div>
+      <div class="mc-body"><div class="mc-name">Cachecol Oficial Boavista</div><div class="mc-price">€ 24,99</div></div>
+    </div>
+    <div class="merch-card">
+      <div class="mc-img"><img src="https://placehold.co/400x400/1e1400/C9A84C?text=Boné+Xadrez" alt="Cap"></div>
+      <div class="mc-body"><div class="mc-name">Boné Xadrez BFC</div><div class="mc-price">€ 22,99</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership">
+  <div class="memb-card">
+    <div class="memb-tier">Plano Adepto</div>
+    <div class="memb-title">Básico</div>
+    <div class="memb-price-wrap">
+      <div class="memb-price">€ 48</div>
+      <div class="memb-period">por época</div>
+    </div>
+    <ul class="memb-perks">
+      <li>Cartão de sócio</li>
+      <li>Desconto de 10% na loja</li>
+      <li>Newsletter exclusiva</li>
+    </ul>
+    <div class="memb-cta"><a href="#" class="btn-outline-gold">Aderir</a></div>
+  </div>
+  <div class="memb-card featured">
+    <div class="memb-tier">⭐ Mais Popular · Plano Pantera</div>
+    <div class="memb-title">Pantera</div>
+    <div class="memb-price-wrap">
+      <div class="memb-price">€ 120</div>
+      <div class="memb-period">por época</div>
+    </div>
+    <ul class="memb-perks">
+      <li>Acesso prioritário a bilhetes</li>
+      <li>Desconto de 20% na loja</li>
+      <li>Convite para eventos exclusivos</li>
+      <li>Visita ao estádio</li>
+    </ul>
+    <div class="memb-cta"><a href="#" class="btn-gold">Aderir Agora</a></div>
+  </div>
+  <div class="memb-card">
+    <div class="memb-tier">Plano Xadrez</div>
+    <div class="memb-title">Premium</div>
+    <div class="memb-price-wrap">
+      <div class="memb-price">€ 240</div>
+      <div class="memb-period">por época</div>
+    </div>
+    <ul class="memb-perks">
+      <li>Tudo do Pantera</li>
+      <li>Lugar reservado na bancada</li>
+      <li>Acesso à zona VIP</li>
+      <li>Encontro com jogadores</li>
+    </ul>
+    <div class="memb-cta"><a href="#" class="btn-outline-gold">Aderir</a></div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="partners-label">Parceiros Oficiais</div>
+  <div class="partners-row">
+    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+1" alt="p1"></div>
+    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+2" alt="p2"></div>
+    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+3" alt="p3"></div>
+    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+4" alt="p4"></div>
+    <div class="partner"><img src="https://placehold.co/130x40/333/888?text=Parceiro+5" alt="p5"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <img src="brand_assets/Boavista_F.C._logo.svg.png" class="foot-logo" alt="BFC">
+      <p class="foot-desc">Boavista FC — Estádio do Bessa, Porto. Fundado em 1903.</p>
+      <div class="foot-checker">
+        <div class="fcsq" style="background:#fff;"></div>
+        <div class="fcsq" style="background:#111;border:1px solid #333;"></div>
+        <div class="fcsq" style="background:#fff;"></div>
+        <div class="fcsq" style="background:#111;border:1px solid #333;"></div>
+        <div class="fcsq" style="background:#fff;"></div>
+        <div class="fcsq" style="background:#111;border:1px solid #333;"></div>
+      </div>
+      <div class="foot-social">
+        <a href="#" class="foot-soc-btn">f</a>
+        <a href="#" class="foot-soc-btn">ig</a>
+        <a href="#" class="foot-soc-btn">𝕏</a>
+        <a href="#" class="foot-soc-btn">▶</a>
+      </div>
+    </div>
+    <div class="foot-links-grid">
+      <div>
+        <div class="foot-col-head">Clube</div>
+        <ul class="foot-col-links">
+          <li><a href="#">História</a></li>
+          <li><a href="#">Estádio do Bessa</a></li>
+          <li><a href="#">Academia</a></li>
+          <li><a href="#">Museu</a></li>
+          <li><a href="#">Fundação</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-head">Futebol</div>
+        <ul class="foot-col-links">
+          <li><a href="#">Plantel</a></li>
+          <li><a href="#">Calendário</a></li>
+          <li><a href="#">Resultados</a></li>
+          <li><a href="#">Classificação</a></li>
+          <li><a href="#">Estatísticas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-head">Comunidade</div>
+        <ul class="foot-col-links">
+          <li><a href="#">Sócios</a></li>
+          <li><a href="#">Bilhetes</a></li>
+          <li><a href="#">Loja Oficial</a></li>
+          <li><a href="#">App Boavista</a></li>
+          <li><a href="#">Eventos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-head">Informações</div>
+        <ul class="foot-col-links">
+          <li><a href="#">Media</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Parceiros</a></li>
+          <li><a href="#">Recrutamento</a></li>
+          <li><a href="#">Contactos</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-copy">© 2026 Boavista Futebol Clube. Todos os direitos reservados.</div>
+    <div class="foot-legal">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Fixture ticker
+  (function(){
+    const items = [
+      {comp:'Liga Portugal',teams:'BFC 3-0 Vitória SC',score:'',date:'3 Mai'},
+      {comp:'Liga Portugal',teams:'FC Arouca 1-1 BFC',score:'',date:'10 Mai'},
+      {comp:'Liga Portugal',teams:'BFC 2-1 Estoril',score:'',date:'17 Mai'},
+      {comp:'Liga Portugal',teams:'BFC vs SL Benfica',score:'24 Mai · 21:15',date:''},
+      {comp:'Liga Portugal',teams:'BFC vs Sporting CP',score:'31 Mai · 20:30',date:''},
+      {comp:'Liga Portugal',teams:'Famalicão vs BFC',score:'7 Jun · 18:00',date:''},
+    ];
+    const el = document.getElementById('tickerInner');
+    // Duplicate for seamless loop
+    [...items,...items].forEach(i=>{
+      const d=document.createElement('div');
+      d.className='ticker-item';
+      d.innerHTML=`
+        <span class="ticker-comp">${i.comp}</span>
+        <span class="ticker-teams">${i.teams}</span>
+        ${i.score?`<span class="ticker-score">${i.score}</span>`:''}
+        ${i.date?`<span class="ticker-date">${i.date}</span>`:''}
+      `;
+      el.appendChild(d);
+    });
+  })();
+</script>
+</body>
+</html>
